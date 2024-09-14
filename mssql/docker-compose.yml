@@ -1,0 +1,16 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-server
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=!Root1234
+      - PATH=/opt/mssql-tools18/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mssql-data:/var/opt/mssql/data     # 存儲數據庫文件
+      - ./mssql-logs:/var/opt/mssql/log      # 存儲日誌文件
+      - ./mssql-backups:/var/opt/mssql/backup # 存儲備份文件
+    privileged: true
+    restart: always
